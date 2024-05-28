@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using PassGuard.Infrastructure;
+using PassGuard.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +24,16 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 });
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddShared();
+
 var app = builder.Build();
+app
+    .MapIdentityApi<IdentityUser>()
+    .WithTags("Identity");
 
 if (app.Environment.IsDevelopment())
 {
@@ -31,6 +43,7 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "PassGuard v1");
     }});
 }
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.Run();

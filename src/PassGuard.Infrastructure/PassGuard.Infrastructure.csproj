@@ -8,6 +8,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PassGuard.Core\PassGuard.Core.csproj" />
+      <ProjectReference Include="..\PassGuard.Shared\PassGuard.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.5" />
     </ItemGroup>
 
 </Project>
